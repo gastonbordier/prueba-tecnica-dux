@@ -1,0 +1,24 @@
+package com.dux.pruebatecnica.demo.exceptions;
+
+import com.dux.pruebatecnica.demo.dtos.ErrorResponseDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@Slf4j
+@ControllerAdvice
+public class GlobalErrorHandler {
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Object> handleCustomEntityNotFoundException(NotFoundException ex) {
+        log.error(ex.getLocalizedMessage());
+        return new ResponseEntity<>(ErrorResponseDTO.builder()
+                    .mensaje(ex.getMessage())
+                    .codigo(HttpStatus.NOT_FOUND.value())
+                    .build(),
+                HttpStatus.NOT_FOUND);
+    }
+
+}
