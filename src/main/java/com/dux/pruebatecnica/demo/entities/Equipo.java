@@ -3,8 +3,7 @@ package com.dux.pruebatecnica.demo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,11 +12,9 @@ import lombok.*;
 @Builder
 public class Equipo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
     private String liga;
     private String pais;
-
-
 }
