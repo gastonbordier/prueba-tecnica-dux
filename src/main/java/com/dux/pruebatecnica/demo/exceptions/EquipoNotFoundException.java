@@ -1,10 +1,10 @@
 package com.dux.pruebatecnica.demo.exceptions;
 
-public class NotFoundException extends RuntimeException {
+public class EquipoNotFoundException extends RuntimeException {
 
     private final String message;
 
-    public NotFoundException(String message){
+    public EquipoNotFoundException(String message){
         this.message = message;
     }
 

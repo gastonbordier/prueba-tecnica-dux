@@ -26,7 +26,7 @@ public class EquipoController {
     }
 
     @PostMapping("/equipos")
-    public ResponseEntity<?> crearEquipo(@RequestBody @Valid EquipoCreateDTO dto) {
+    public ResponseEntity<?> crearEquipo(@RequestBody EquipoCreateDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
@@ -40,11 +40,6 @@ public class EquipoController {
         service.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
-
-
-
-
 
     @GetMapping("/equipo/{id}")
     public ResponseEntity<?> obtenerEquipo(@PathVariable Integer id) {
