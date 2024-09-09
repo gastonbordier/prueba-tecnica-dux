@@ -1,5 +1,6 @@
 package com.dux.pruebatecnica.demo.exceptions;
 
+import com.dux.pruebatecnica.demo.controllers.EquipoController;
 import com.dux.pruebatecnica.demo.dtos.ErrorResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,10 +10,11 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice(basePackageClasses = {EquipoController.class})
 public class GlobalErrorHandler {
 
     @ExceptionHandler(EquipoNotFoundException.class)
