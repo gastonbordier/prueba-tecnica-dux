@@ -3,7 +3,7 @@ package com.dux.pruebatecnica.demo.controllers;
 import com.dux.pruebatecnica.demo.dtos.EquipoCreateDTO;
 import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
 import com.dux.pruebatecnica.demo.services.EquipoService;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,23 +31,24 @@ public class EquipoController {
     }
 
     @PutMapping("/equipos/{id}")
-    public ResponseEntity<?> actualizarEquipo(@PathVariable Integer id, @RequestBody @Valid EquipoUpdateDTO dto) {
+    public ResponseEntity<?> actualizarEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "3") Integer id,
+                                              @RequestBody EquipoUpdateDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
     @DeleteMapping("/equipos/{id}")
-    public ResponseEntity<?> eliminarEquipo(@PathVariable Integer id) {
+    public ResponseEntity<?> eliminarEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "6") Integer id) {
         service.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/equipo/{id}")
-    public ResponseEntity<?> obtenerEquipo(@PathVariable Integer id) {
+    public ResponseEntity<?> obtenerEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "9") Integer id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping("/equipos/buscar")
-    public ResponseEntity<?> obtenerEquipo(@PathParam("nombre") String nombre) {
+    public ResponseEntity<?> obtenerEquipoPorNombre(@PathParam("nombre") @Parameter(description = "Texto a buscar", example = "Ajax") String nombre) {
         return ResponseEntity.ok(service.findByNombre(nombre));
     }
 

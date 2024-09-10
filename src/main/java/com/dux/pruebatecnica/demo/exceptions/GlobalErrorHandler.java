@@ -2,6 +2,7 @@ package com.dux.pruebatecnica.demo.exceptions;
 
 import com.dux.pruebatecnica.demo.controllers.EquipoController;
 import com.dux.pruebatecnica.demo.dtos.ErrorResponseDTO;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
-@RestControllerAdvice(basePackageClasses = {EquipoController.class})
+@Hidden
+@RestControllerAdvice
 public class GlobalErrorHandler {
 
     @ExceptionHandler(EquipoNotFoundException.class)
