@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Equipos")
 @TestClassOrder(ClassOrderer.OrderAnnotation.class)
-@ActiveProfiles("test")
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Slf4j

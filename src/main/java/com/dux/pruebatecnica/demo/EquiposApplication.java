@@ -2,13 +2,12 @@ package com.dux.pruebatecnica.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-public class DemoApplication {
+public class EquiposApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(EquiposApplication.class, args);
 	}
 
 }
