@@ -23,3 +23,6 @@ INSERT INTO dux.equipos (nombre, liga, pais)
             ('Besiktas JK','Süper Lig','Turquía'),
             ('SSC Napoli','Serie A','Italia'),
             ('Atlético Madrid','La Liga','España');
+
+INSERT INTO dux.usuarios(email, password)
+    VALUES ('test', '123456');

@@ -1,6 +1,5 @@
 package com.dux.pruebatecnica.demo.exceptions;
 
-import com.dux.pruebatecnica.demo.controllers.EquipoController;
 import com.dux.pruebatecnica.demo.dtos.ErrorResponseDTO;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -71,6 +68,16 @@ public class GlobalErrorHandler {
     }
 
 
+
+        @ExceptionHandler(LoginException.class)
+        public ResponseEntity<Object> handleAuthenticationFailedException(LoginException ex) {
+            log.error(ex.getMessage(), ex);
+            return new ResponseEntity<>(ErrorResponseDTO.builder()
+                    .mensaje(ex.getMessage())
+                    .codigo(HttpStatus.UNAUTHORIZED.value())
+                    .build(),
+                    HttpStatus.UNAUTHORIZED);
+        }
 
 
 
