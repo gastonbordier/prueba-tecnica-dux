@@ -13,40 +13,41 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/equipos")
 @Slf4j
 public class EquipoController {
 
     private final EquipoService service;
 
 
-    @GetMapping("/equipos")
+    @GetMapping
     public ResponseEntity<?> obtenerEquipos() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping("/equipos")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "9") Integer id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
+    @PostMapping
     public ResponseEntity<?> crearEquipo(@RequestBody EquipoCreateDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
-    @PutMapping("/equipos/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> actualizarEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "3") Integer id,
                                               @RequestBody EquipoUpdateDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    @DeleteMapping("/equipos/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "6") Integer id) {
         service.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/equipo/{id}")
-    public ResponseEntity<?> obtenerEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "9") Integer id) {
-        return ResponseEntity.ok(service.findById(id));
-    }
-
-    @GetMapping("/equipos/buscar")
+    @GetMapping("/buscar")
     public ResponseEntity<?> obtenerEquipoPorNombre(@PathParam("nombre") @Parameter(description = "Texto a buscar", example = "Ajax") String nombre) {
         return ResponseEntity.ok(service.findByNombre(nombre));
     }

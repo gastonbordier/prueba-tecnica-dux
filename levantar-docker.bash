@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mvn clean package -DskipTests
+mvn clean package
 RESULT=$?
 
 if [ $RESULT -eq 1 ];
