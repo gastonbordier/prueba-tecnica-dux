@@ -1,11 +1,12 @@
 package com.dux.pruebatecnica.demo.utils;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-@Data
+@Getter
 public class AppProperties {
     @Value("${spring.application.name}")
     private String appName;
@@ -19,5 +20,7 @@ public class AppProperties {
     private String apiLocalServerName;
     @Value("${api.local.server.url}")
     private String apiLocalServerUrl;
+    @Value("${jwt.secret}")
+    private String secret;
 
 }

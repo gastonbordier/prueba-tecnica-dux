@@ -1,13 +1,13 @@
 package com.dux.pruebatecnica.demo.exceptions;
 
-public class JwtException extends RuntimeException {
+public class JwtValidationException extends RuntimeException {
     private final String message;
 
-    public JwtException(String message) {
+    public JwtValidationException(String message) {
         this.message = message;
     }
 
-    public JwtException() {
+    public JwtValidationException() {
         this.message = "No autorizado";
     }
 

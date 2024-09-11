@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -46,6 +47,16 @@ public class GlobalErrorHandler {
                 HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Object> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        log.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(ErrorResponseDTO.builder()
+                .mensaje("El metodo de la solicitud no es aceptado")
+                .codigo(HttpStatus.METHOD_NOT_ALLOWED.value())
+                .build(),
+                HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         log.error(ex.getMessage(), ex);
@@ -55,7 +66,6 @@ public class GlobalErrorHandler {
                 .build(),
                 HttpStatus.BAD_REQUEST);
     }
-
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<Object> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
@@ -68,19 +78,15 @@ public class GlobalErrorHandler {
     }
 
 
-
-        @ExceptionHandler(LoginException.class)
-        public ResponseEntity<Object> handleAuthenticationFailedException(LoginException ex) {
-            log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(ErrorResponseDTO.builder()
-                    .mensaje(ex.getMessage())
-                    .codigo(HttpStatus.UNAUTHORIZED.value())
-                    .build(),
-                    HttpStatus.UNAUTHORIZED);
-        }
-
-
-
+    @ExceptionHandler(LoginException.class)
+    public ResponseEntity<Object> handleAuthenticationFailedException(LoginException ex) {
+        log.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(ErrorResponseDTO.builder()
+                .mensaje(ex.getMessage())
+                .codigo(HttpStatus.UNAUTHORIZED.value())
+                .build(),
+                HttpStatus.UNAUTHORIZED);
+    }
 
 
 }
