@@ -77,16 +77,4 @@ public class GlobalErrorHandler {
                 HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 
-
-    @ExceptionHandler(LoginException.class)
-    public ResponseEntity<Object> handleAuthenticationFailedException(LoginException ex) {
-        log.error(ex.getMessage(), ex);
-        return new ResponseEntity<>(ErrorResponseDTO.builder()
-                .mensaje(ex.getMessage())
-                .codigo(HttpStatus.UNAUTHORIZED.value())
-                .build(),
-                HttpStatus.UNAUTHORIZED);
-    }
-
-
 }

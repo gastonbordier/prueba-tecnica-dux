@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.dux.pruebatecnica</groupId>
     <artifactId>equipos-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-unsecured</version>
     <name>Equipos API</name>
     <description>Projecto Spring Boot para Dux Software</description>
     <url/>
@@ -37,10 +37,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>

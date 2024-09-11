@@ -20,7 +20,5 @@ public class AppProperties {
     private String apiLocalServerName;
     @Value("${api.local.server.url}")
     private String apiLocalServerUrl;
-    @Value("${jwt.secret}")
-    private String secret;
 
 }
