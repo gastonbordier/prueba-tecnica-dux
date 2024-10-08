@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +32,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 @Slf4j
@@ -40,31 +43,33 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final ObjectMapper objectMapper;
     private final JwtService jwtService;
 
+    private String path;
+
+    public boolean isThisPath(String pathRequired) {
+        return Pattern.matches("^" + pathRequired + ".*", path);
+    }
+
     @Override
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,
                                     @Nonnull FilterChain filterChain) throws ServletException, IOException {
+        path = request.getServletPath();
 
-
-        String path = request.getServletPath();
-
-        switch (path) {
-            case "/auth/login":
-                try {
-                    loguearUsuario(request, response);
-                } catch (LoginException | JwtValidationException | UsernameNotFoundException | JsonParseException |
-                         MismatchedInputException e) {
-                    resolverLoginFallido(response);
-                }
-                break;
-            default:
+        if (isThisPath("/api/auth/login")) {
+            try {
+                loguearUsuario(request, response);
+            } catch (LoginException | JwtValidationException | UsernameNotFoundException | JsonParseException |
+                     MismatchedInputException e) {
+                resolverLoginFallido(response);
+            }
+        } else if (isThisPath("/api")) {
                 try {
                     validarToken(request, response);
-                    filterChain.doFilter(request, response);
                 } catch (MalformedJwtException | IllegalArgumentException | NullPointerException e) {
                     resolverValidacionTokenFallida(response);
                 }
         }
+        filterChain.doFilter(request, response);
 
 
     }
@@ -103,11 +108,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     private void validarToken(HttpServletRequest request, HttpServletResponse response) {
-        Optional<Cookie> cookie = Arrays.stream(request.getCookies()).filter(v -> v.getName().equals("token")).findFirst();
-        if (cookie.isEmpty())
+        String authorization = request.getHeader("Authorization");
+        if (StringUtils.isBlank(authorization))
             throw new JwtValidationException();
 
-        String username = jwtService.obtenerUsuario(cookie.get().getValue());
+        Matcher matcher = Pattern.compile("Bearer (.+)").matcher(authorization);
+        matcher.matches();
+        String username = jwtService.obtenerUsuario(matcher.group(1));
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(token);

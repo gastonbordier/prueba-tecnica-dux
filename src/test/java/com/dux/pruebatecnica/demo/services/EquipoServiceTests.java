@@ -1,6 +1,6 @@
 package com.dux.pruebatecnica.demo.services;
 
-import com.dux.pruebatecnica.demo.dtos.EquipoCreateDTO;
+import com.dux.pruebatecnica.demo.dtos.EquipoDTO;
 import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
 import com.dux.pruebatecnica.demo.entities.Equipo;
 import com.dux.pruebatecnica.demo.exceptions.EquipoNotFoundException;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
@@ -73,7 +72,7 @@ public class EquipoServiceTests {
         @Test
         void testCrearEquipo_DeberiaCrearEquipoCorrectamente() {
             // Verifica que el equipo es creado correctamente cuando los datos son válidos
-            Equipo equipo = service.create(EquipoCreateDTO.builder()
+            Equipo equipo = service.create(EquipoDTO.builder()
                     .nombre("Boca Juniors")
                     .liga("Primera Division")
                     .pais("Argentina")
@@ -88,7 +87,7 @@ public class EquipoServiceTests {
         @Test
         void testCrearEquipo_DatosInvalidos_DeberiaLanzarExcepcion() {
             // Verifica que se lance una excepción cuando se intentan crear datos inválidos
-            EquipoCreateDTO dto = EquipoCreateDTO.builder()
+            EquipoDTO dto = EquipoDTO.builder()
                     .nombre(null)
                     .liga("Primera Division")
                     .pais("Argentina")

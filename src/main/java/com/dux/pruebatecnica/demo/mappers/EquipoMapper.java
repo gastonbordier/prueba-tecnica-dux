@@ -1,14 +1,13 @@
 package com.dux.pruebatecnica.demo.mappers;
 
-import com.dux.pruebatecnica.demo.dtos.EquipoCreateDTO;
-import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
+import com.dux.pruebatecnica.demo.dtos.EquipoDTO;
 import com.dux.pruebatecnica.demo.entities.Equipo;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EquipoMapper {
 
-    public Equipo createDtoToEntity(EquipoCreateDTO dto) {
+    public Equipo dtoToEntity(EquipoDTO dto) {
         return Equipo.builder()
                 .nombre(dto.getNombre())
                 .liga(dto.getLiga())
@@ -16,10 +15,15 @@ public class EquipoMapper {
                 .build();
     }
 
-    public Equipo updateDtoToEntity(Equipo equipo, EquipoUpdateDTO dto) {
-        if (dto.getNombre() != null) equipo.setNombre(dto.getNombre());
-        if (dto.getLiga() != null) equipo.setLiga(dto.getLiga());
-        if (dto.getPais() != null) equipo.setPais(dto.getPais());
-        return equipo;
+    public Equipo dtoToEntity(Integer id, EquipoDTO dto) {
+        return Equipo.builder()
+                .id(id)
+                .nombre(dto.getNombre())
+                .liga(dto.getLiga())
+                .pais(dto.getPais())
+                .build();
     }
+
+
+
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EquipoCreateDTO {
+public class EquipoDTO {
     @NotBlank(message = "El nombre no puede ser nulo ni estar vacio")
     @Schema(description = "Nombre del equipo", example = "River Plate")
     private String nombre;

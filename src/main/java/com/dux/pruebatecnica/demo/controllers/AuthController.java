@@ -1,30 +1,28 @@
 package com.dux.pruebatecnica.demo.controllers;
 
-import com.dux.pruebatecnica.demo.dtos.EquipoCreateDTO;
-import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
-import com.dux.pruebatecnica.demo.entities.Usuario;
-import com.dux.pruebatecnica.demo.exceptions.EquipoNotFoundException;
-import com.dux.pruebatecnica.demo.exceptions.ValidationFailedException;
-import com.dux.pruebatecnica.demo.services.EquipoService;
-import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
-
-import java.util.Collections;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
+
+    @GetMapping
+    public ResponseEntity<?> Equipo() {
+        return ResponseEntity.ok("base");
+    }
+
+    @GetMapping("/hola")
+    public ResponseEntity<?> Equipo2() {
+        return ResponseEntity.ok("hola");
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> crearEquipo() {
