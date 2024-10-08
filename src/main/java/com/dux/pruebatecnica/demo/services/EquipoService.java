@@ -1,7 +1,6 @@
 package com.dux.pruebatecnica.demo.services;
 
 import com.dux.pruebatecnica.demo.dtos.EquipoDTO;
-import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
 import com.dux.pruebatecnica.demo.entities.Equipo;
 import com.dux.pruebatecnica.demo.exceptions.EquipoNotFoundException;
 import com.dux.pruebatecnica.demo.mappers.EquipoMapper;

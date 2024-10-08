@@ -1,7 +1,6 @@
 package com.dux.pruebatecnica.demo.controllers;
 
 import com.dux.pruebatecnica.demo.dtos.EquipoDTO;
-import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
 import com.dux.pruebatecnica.demo.entities.Equipo;
 import com.dux.pruebatecnica.demo.services.EquipoService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,7 +40,7 @@ public class EquipoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "6") Integer id) {
+    public ResponseEntity<Void> eliminarEquipo(@PathVariable @Parameter(description = "Id del equipo", example = "6") Integer id) {
         service.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

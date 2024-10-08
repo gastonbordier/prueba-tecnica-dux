@@ -1,7 +1,6 @@
 package com.dux.pruebatecnica.demo.services;
 
 import com.dux.pruebatecnica.demo.dtos.EquipoDTO;
-import com.dux.pruebatecnica.demo.dtos.EquipoUpdateDTO;
 import com.dux.pruebatecnica.demo.entities.Equipo;
 import com.dux.pruebatecnica.demo.exceptions.EquipoNotFoundException;
 import com.dux.pruebatecnica.demo.exceptions.ValidationFailedException;
@@ -107,7 +106,7 @@ public class EquipoServiceTests {
         @Test
         void testActualizarEquipo_DeberiaActualizarEquipoExistente() {
             // Verifica que el equipo sea actualizado cuando el ID es válido
-            Equipo equipo = service.update(2, EquipoUpdateDTO.builder()
+            Equipo equipo = service.update(2, EquipoDTO.builder()
                     .nombre("Portugal")
                     .liga("Primeira liga")
                     .build());
@@ -121,7 +120,7 @@ public class EquipoServiceTests {
         @Test
         void testActualizarEquipo_NoExistente_DeberiaLanzarExcepcion() {
             // Verifica que se lance una excepción al intentar actualizar un equipo no existente
-            assertThrows(EquipoNotFoundException.class, () -> service.update(40, EquipoUpdateDTO.builder().build()));
+            assertThrows(EquipoNotFoundException.class, () -> service.update(40, EquipoDTO.builder().build()));
         }
     }
 
